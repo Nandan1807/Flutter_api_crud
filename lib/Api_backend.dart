@@ -3,16 +3,32 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class FoodItems {
-  String baseUrl = "Api_url_here";
+  String baseUrl = "https://65e14cf1d3db23f7624aba68.mockapi.io/fooditems";
 
-  Future<List> getAllDetail() async {
+  Future<List<ApiModel>> getAllDetail() async {
     var res = await http.get(Uri.parse(baseUrl));
-    return jsonDecode(res.body);
+    List<ApiModel> itemList = <ApiModel>[];
+    List<dynamic> data = jsonDecode(res.body);
+    for(int i=0;i<data.length;i++){
+      ApiModel item = ApiModel();
+      item.id = data[i]['id'];
+      item.name = data[i]['itemName'];
+      item.image = data[i]['itemImg'];
+      item.description = data[i]['itemDes'];
+      itemList.add(item);
+    }
+    return itemList;
   }
 
-  Future<List> getDetailById(String id) async {
+  Future<ApiModel> getDetailById(String id) async {
     var res = await http.get(Uri.parse(baseUrl + "/" + id));
-    return jsonDecode(res.body);
+    Map<dynamic,dynamic> data = jsonDecode(res.body);
+    ApiModel item = ApiModel();
+    item.id = data['id'];
+    item.name = data['itemName'];
+    item.image = data['itemImg'];
+    item.description = data['itemDes'];
+    return item;
   }
 
   Future<void> deleteDetail(String id) async {

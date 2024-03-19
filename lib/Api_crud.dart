@@ -44,13 +44,13 @@ class _Api_crudState extends State<Api_crud> {
                                       .push(
                                     MaterialPageRoute(
                                       builder: (context) => Api_form(
-                                          id: snapshot.data![index]['id'],
+                                          id: snapshot.data![index].id,
                                           iname: snapshot.data![index]
-                                              ['itemName'],
+                                              .name,
                                           iimage: snapshot.data![index]
-                                              ['itemImg'],
+                                              .image,
                                           ides: snapshot.data![index]
-                                              ['itemDes']),
+                                              .description),
                                     ),
                                   )
                                       .then((value) {
@@ -60,10 +60,10 @@ class _Api_crudState extends State<Api_crud> {
                                 child: Column(
                                   children: [
                                     Image.network(
-                                        snapshot.data![index]['itemImg']),
-                                    Text(snapshot.data![index]['itemName']
+                                        snapshot.data![index].image),
+                                    Text(snapshot.data![index].name
                                         .toString()),
-                                    Text(snapshot.data![index]['itemDes']
+                                    Text(snapshot.data![index].description
                                         .toString()),
                                   ],
                                 ),
@@ -72,7 +72,7 @@ class _Api_crudState extends State<Api_crud> {
                                   onPressed: () {
                                     FoodItems()
                                         .deleteDetail(
-                                            snapshot.data![index]["id"])
+                                            snapshot.data![index].id)
                                         .then((value) {
                                       setState(() {});
                                     });

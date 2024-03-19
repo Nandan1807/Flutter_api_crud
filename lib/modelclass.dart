@@ -1,8 +1,15 @@
 class ApiModel{
 
+  String _id="";
   String _name="";
   String _image="";
   String _description="";
+
+  String get id => _id;
+
+  set id(String value) {
+    _id = value;
+  }
 
   String get name => _name;
 
